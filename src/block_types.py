@@ -12,11 +12,11 @@ class BlockType(Enum):
 def block_to_blocktype(block):
     lines = block.split('\n')
 
-    if re.match(r'^#{1,6} ', block):
+    if re.match(r'^#{1,6} ', lines[0]):
         return BlockType.HEADING
-    elif block.startswith('```\n') and block.endswith('```'):
+    elif block.startswith('```\n') and block.strip().endswith('```'):
         return BlockType.CODE
-    elif block.startswith('> ' or '>'):
+    elif all(line.startswith('> ') for line in lines):
         return BlockType.QUOTE
     elif all(line.startswith('- ') for line in lines):
         return BlockType.UNORDERED_LIST
