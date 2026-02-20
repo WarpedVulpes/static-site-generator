@@ -10,7 +10,7 @@ def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     html_nodes = []
     if not blocks:
-        return LeafNode("div", "")
+        return ParentNode("div", [])
     
     for block in blocks:
         block_type = block_to_blocktype(block)
@@ -52,8 +52,8 @@ def markdown_to_html_node(markdown):
 
         elif block_type == BlockType.QUOTE:
             lines = block.split('\n')
-            quote_lines = [line.strip("> ").strip() for line in lines]
-            quote_text = "\n".join(quote_lines)
+            quote_lines = [line.lstrip(">").strip() for line in lines]
+            quote_text = " ".join(quote_lines)
             children = text_to_children(quote_text)
             html_node = ParentNode("blockquote", children)
 

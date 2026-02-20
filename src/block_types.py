@@ -16,7 +16,7 @@ def block_to_blocktype(block):
         return BlockType.HEADING
     elif block.startswith('```\n') and block.strip().endswith('```'):
         return BlockType.CODE
-    elif all(line.startswith('> ') for line in lines):
+    elif all(line.startswith('>') for line in lines):
         return BlockType.QUOTE
     elif all(line.startswith('- ') for line in lines):
         return BlockType.UNORDERED_LIST
